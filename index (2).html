@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>20-Minute Health & Longevity Program</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 16px; font-family: Arial, sans-serif; background: #0f172a; color: white; }
+    .app { max-width: 560px; margin: 0 auto; }
+    h1 { margin: 0 0 6px; font-size: 31px; line-height: 1.05; letter-spacing: -1px; }
+    .subtitle { color: #cbd5e1; margin-bottom: 16px; line-height: 1.4; font-size: 15px; }
+    .card, details { background: #111827; border: 1px solid #334155; border-radius: 18px; padding: 16px; margin-bottom: 14px; }
+    .section-label { display: block; font-size: 13px; font-weight: bold; color: #94a3b8; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+    select { width: 100%; padding: 16px; border-radius: 14px; border: 1px solid #475569; background: #1e293b; color: white; font-size: 18px; font-weight: bold; }
+    h2 { margin: 0 0 8px; font-size: 25px; line-height: 1.15; }
+    .round-row { display: grid; grid-template-columns: 1fr 56px 56px; gap: 10px; margin-top: 8px; }
+    .round-display { background: #1e293b; border: 1px solid #475569; border-radius: 14px; padding: 14px; font-size: 20px; font-weight: bold; }
+    button { border: none; border-radius: 14px; font-size: 20px; font-weight: bold; background: #38bdf8; color: #06111f; cursor: pointer; }
+    .gray { background: #64748b; color: white; }
+    .reset { width: 100%; padding: 14px; margin-top: 14px; background: #fb7185; color: white; font-size: 16px; }
+    .note { background: #1e293b; border-radius: 14px; padding: 12px; margin: 10px 0; color: #dbeafe; line-height: 1.45; font-size: 15px; }
+    .exercise { display: flex; align-items: center; gap: 12px; padding: 13px 0; border-bottom: 1px solid #334155; }
+    .exercise:last-child { border-bottom: none; }
+    input[type="checkbox"] { width: 31px; height: 31px; accent-color: #22c55e; flex-shrink: 0; }
+    .exercise-name { font-size: 18px; font-weight: bold; line-height: 1.2; }
+    .exercise-reps { color: #94a3b8; font-size: 14px; margin-top: 3px; line-height: 1.3; }
+    .done .exercise-name, .done .exercise-reps { opacity: 0.5; text-decoration: line-through; }
+    .small { color: #94a3b8; font-size: 14px; margin-top: 10px; line-height: 1.4; }
+    .progress-shell { height: 12px; background: #1e293b; border-radius: 999px; margin-top: 14px; overflow: hidden; }
+    .progress-bar { height: 100%; width: 0%; background: #22c55e; }
+    summary { cursor: pointer; font-weight: bold; font-size: 18px; }
+    ul { color: #cbd5e1; line-height: 1.6; padding-left: 22px; margin-bottom: 0; }
+    @media (min-width: 760px) { body { padding: 32px; } h1 { font-size: 40px; } .card, details { padding: 20px; } }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <h1>20-Minute Health & Longevity Program</h1>
+    <div class="subtitle">Built for daily walking, Bowflex dumbbells up to 52.5 lb, no bench required, and the goal order: health → longevity → fat loss → muscle.</div>
+
+    <div class="card">
+      <label class="section-label" for="daySelect">Choose Day</label>
+      <select id="daySelect">
+        <option value="0">Mon — Strength A</option>
+        <option value="1">Tue — Conditioning</option>
+        <option value="2">Wed — Hinge + Pull</option>
+        <option value="3">Thu — Resilience Day</option>
+        <option value="4">Fri — Strength B</option>
+        <option value="5">Sat — Power Day</option>
+        <option value="6">Sun — Durability Day</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <h2 id="title"></h2>
+      <div class="note" id="focus"></div>
+      <label class="section-label">Round</label>
+      <div class="round-row">
+        <div class="round-display" id="roundDisplay"></div>
+        <button class="gray" id="minusButton" type="button">−</button>
+        <button id="plusButton" type="button">+</button>
+      </div>
+      <div class="small">Changing rounds clears the checklist for the new round.</div>
+    </div>
+
+    <div class="card">
+      <label class="section-label">Warm-Up</label>
+      <div id="warmupList"></div>
+    </div>
+
+    <div class="card">
+      <label class="section-label">Main Workout</label>
+      <div id="exerciseList"></div>
+      <div class="progress-shell"><div class="progress-bar" id="progressBar"></div></div>
+      <div class="small" id="progressText"></div>
+      <button class="reset" id="resetButton" type="button">Reset Today</button>
+    </div>
+
+    <details><summary>General Rules</summary><ul><li>Workout = exactly 20 minutes.</li><li>Use good form.</li><li>Minimal rest unless specified.</li><li>Increase reps before increasing weight.</li><li>Walk daily outside of workouts.</li></ul></details>
+    <details><summary>Progression Targets</summary><ul><li>Push-Ups: 23 → 30 → 40+</li><li>Suitcase Carry with 52.5 lb: 45 sec → 60 sec → 90 sec</li><li>Farmer Carry with both 52.5 lb dumbbells: 60 sec → 90 sec</li><li>Split Squats & Lunges: 8 reps → 10 reps → 12 reps, then increase weight</li><li>RDL: 10 reps → 12 reps → 15 reps, then increase weight</li></ul></details>
+    <details><summary>Every 2 Weeks</summary><ul><li>Weight: current 231 lb</li><li>Waist: current 44"</li><li>Push-Ups: current 23</li><li>Plank: current 3:00</li><li>Mile: current 7:50</li><li>Suitcase Carry with 52.5 lb: record baseline</li></ul></details>
+    <details><summary>Primary Goal</summary><ul><li>Waist: 44" → under 40"</li><li>Weight: 231 lb → under 210 lb</li><li>Maintain strength and conditioning while reducing waist and body weight.</li></ul></details>
+  </div>
+
+  <script>
+    var workouts = [
+      { name: "Mon — Strength A", rounds: 5, focus: "Focus: leg strength, balance, core stability, grip strength, bone density.", warmup: [["Jumping Jacks","30 sec"],["Bodyweight Squats","30 sec"],["Hip Hinges","30 sec"],["Arm Circles","30 sec"]], exercises: [["Bulgarian Split Squat","8 per leg"],["Push-Ups","8–15 reps"],["Suitcase Carry Right","45 sec"],["Suitcase Carry Left","45 sec"]] },
+      { name: "Tue — Conditioning", rounds: 9, focus: "Focus: VO₂ max, heart health, fat loss, conditioning. Choose ONE movement option.", warmup: [["Easy March in Place","2 min"]], exercises: [["Hard Effort","30 sec"],["Easy Effort","30 sec"],["Fast Step-Ups","option"],["Fast Marching","option"],["Shadow Boxing","option"],["Jumping Jacks","option"]] },
+      { name: "Wed — Hinge + Pull", rounds: 5, focus: "Focus: posterior chain, lower back health, posture, grip strength.", warmup: [["Hip Hinges","30 sec"],["Arm Swings","30 sec"],["Glute Bridges","60 sec"]], exercises: [["Romanian Deadlift","10 reps"],["One-Arm Row","12 per side"],["Suitcase Carry Right","45 sec"],["Suitcase Carry Left","45 sec"]] },
+      { name: "Thu — Resilience Day", rounds: 4, focus: "Focus: joint health, shoulder health, knee health, functional fitness.", warmup: [["Easy Movement","2 min"]], exercises: [["Step-Up","10 per leg"],["Dumbbell Overhead Press","8 reps"],["Farmer Carry","60 sec"]] },
+      { name: "Fri — Strength B", rounds: 5, focus: "Focus: strength, muscle retention, balance, grip.", warmup: [["Bodyweight Lunges","60 sec"],["Arm Circles","30 sec"],["Hip Hinges","30 sec"]], exercises: [["Reverse Lunge","8 per leg"],["Feet-Elevated Push-Up","8–15 reps"],["Farmer Carry","60 sec"]] },
+      { name: "Sat — Power Day", rounds: 6, focus: "Focus: power, coordination, athleticism, longevity. Move explosively and stop before speed slows down.", warmup: [["Easy Movement","2 min"]], exercises: [["Push Press","5 reps"],["Fast Step-Ups","10 per leg"],["Farmer Carry","60 sec"]] },
+      { name: "Sun — Durability Day", rounds: 1, focus: "Focus: foot stability, hip stability, balance, injury prevention. Repeat continuously for 18 minutes.", warmup: [["Easy Movement","2 min"]], exercises: [["Single-Leg RDL","8 per leg"],["Horse Stance","60 sec"],["Suitcase Carry Right","45 sec"],["Suitcase Carry Left","45 sec"]] }
+    ];
+
+    var currentDay = 0, currentRound = 1, warmupChecked = [], exerciseChecked = [];
+    var daySelect = document.getElementById("daySelect");
+    var title = document.getElementById("title");
+    var focus = document.getElementById("focus");
+    var roundDisplay = document.getElementById("roundDisplay");
+    var warmupList = document.getElementById("warmupList");
+    var exerciseList = document.getElementById("exerciseList");
+    var progressBar = document.getElementById("progressBar");
+    var progressText = document.getElementById("progressText");
+
+    function resetChecks() {
+      warmupChecked = workouts[currentDay].warmup.map(function(){ return false; });
+      exerciseChecked = workouts[currentDay].exercises.map(function(){ return false; });
+    }
+
+    function makeChecklist(container, items, checkedArray, type) {
+      container.innerHTML = "";
+      for (var i = 0; i < items.length; i++) {
+        var row = document.createElement("label");
+        row.className = "exercise";
+        var checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = checkedArray[i];
+        checkbox.setAttribute("data-index", i);
+        checkbox.setAttribute("data-type", type);
+        var textBox = document.createElement("div");
+        var name = document.createElement("div");
+        name.className = "exercise-name";
+        name.textContent = items[i][0];
+        var reps = document.createElement("div");
+        reps.className = "exercise-reps";
+        reps.textContent = items[i][1];
+        textBox.appendChild(name);
+        textBox.appendChild(reps);
+        row.appendChild(checkbox);
+        row.appendChild(textBox);
+        if (checkedArray[i]) row.classList.add("done");
+        checkbox.addEventListener("change", function(event) {
+          var index = Number(event.target.getAttribute("data-index"));
+          var itemType = event.target.getAttribute("data-type");
+          if (itemType === "warmup") warmupChecked[index] = event.target.checked;
+          else exerciseChecked[index] = event.target.checked;
+          if (event.target.checked) event.target.parentElement.classList.add("done");
+          else event.target.parentElement.classList.remove("done");
+          updateProgress();
+        });
+        container.appendChild(row);
+      }
+    }
+
+    function updateProgress() {
+      var done = 0;
+      var total = warmupChecked.length + exerciseChecked.length;
+      for (var i = 0; i < warmupChecked.length; i++) if (warmupChecked[i]) done++;
+      for (var j = 0; j < exerciseChecked.length; j++) if (exerciseChecked[j]) done++;
+      var percent = total === 0 ? 0 : Math.round((done / total) * 100);
+      progressBar.style.width = percent + "%";
+      progressText.textContent = done + " of " + total + " items checked.";
+    }
+
+    function drawWorkout() {
+      var workout = workouts[currentDay];
+      title.textContent = workout.name;
+      focus.textContent = workout.focus;
+      roundDisplay.textContent = workout.rounds === 1 ? "Continuous 18 min" : currentRound + " / " + workout.rounds;
+      makeChecklist(warmupList, workout.warmup, warmupChecked, "warmup");
+      makeChecklist(exerciseList, workout.exercises, exerciseChecked, "exercise");
+      updateProgress();
+    }
+
+    function changeDay(dayIndex) {
+      currentDay = dayIndex;
+      currentRound = 1;
+      resetChecks();
+      drawWorkout();
+    }
+
+    daySelect.addEventListener("change", function() { changeDay(Number(daySelect.value)); });
+    document.getElementById("plusButton").addEventListener("click", function() { if (currentRound < workouts[currentDay].rounds) currentRound++; resetChecks(); drawWorkout(); });
+    document.getElementById("minusButton").addEventListener("click", function() { if (currentRound > 1) currentRound--; resetChecks(); drawWorkout(); });
+    document.getElementById("resetButton").addEventListener("click", function() { currentRound = 1; resetChecks(); drawWorkout(); });
+
+    resetChecks();
+    drawWorkout();
+  </script>
+</body>
+</html>
